@@ -5,12 +5,19 @@ import web.model.Role;
 import web.model.User;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 @Repository
 public class UserDaoImpl implements UserDao {
-    private final Map<String, User> userMap = Collections.singletonMap("test",
-            new User(1L, "test", "test", Collections.singleton(new Role(1L, "ROLE_USER")))); // name - уникальное значение, выступает в качестве ключа Map
+    private final  Map<String, User> userMap = new HashMap<>();
+
+    public UserDaoImpl() {
+        userMap.put("admin",new User(1L, "admin", "admin", Collections.singleton(new Role(1L, "ROLE_ADMIN"))));
+        userMap.put("user",new User(2L, "user", "user", Collections.singleton(new Role(2L, "ROLE_USER"))));
+    }
+
+
 
     @Override
     public User getUserByName(String name) {
